@@ -1,0 +1,1 @@
+A Rails Engine for managing Bandshell-powered Concerto hardware 

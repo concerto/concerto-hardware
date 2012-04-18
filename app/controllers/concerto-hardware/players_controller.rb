@@ -1,4 +1,7 @@
+module ConcertoHardware
 class PlayersController < ApplicationController
+  unloadable #marks this class for reloading in between requests
+
   # GET /players
   # GET /players.json
   def index
@@ -80,4 +83,6 @@ class PlayersController < ApplicationController
       format.json { head :no_content }
     end
   end
+end
+
 end

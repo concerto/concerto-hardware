@@ -1,3 +1,3 @@
-ConcertoHardware::Application.routes.draw do
+Rails.Application.routes.draw do
   resources :players
 end

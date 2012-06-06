@@ -1,22 +1,24 @@
 require 'rails/generators'
 require 'rails/generators/migration'
 
-class SentinelGenerator < Rails::Generators::Base
-  include Rails::Generators::Migration
+module ConcertoHardware
+  class MigrationGenerator < Rails::Generators::Base
+    include Rails::Generators::Migration
 
-  def self.source_root
-    @source_root ||= File.join(File.dirname(__FILE__), 'templates')
-  end
-
-  def self.next_migration_number(dirname)
-    if ActiveRecord::Base.timestamped_migrations
-      Time.now.utc.strftime("%Y%m%d%H%M%S")
-    else
-      "%.3d" % (current_migration_number(dirname) + 1)
+    def self.source_root
+      @source_root ||= File.join(File.dirname(__FILE__), 'templates')
     end
-  end
 
-  def create_migration_file
-    migration_template 'migration.rb', 'db/migrate/create_players.rb'
-  end
-end
+    def self.next_migration_number(dirname)
+      if ActiveRecord::Base.timestamped_migrations
+        Time.now.utc.strftime("%Y%m%d%H%M%S")
+      else
+        "%.3d" % (current_migration_number(dirname) + 1)
+      end
+    end
+
+    def create_migration_file
+      migration_template 'create_players.rb', 'db/migrate/create_players.rb'
+    end
+  end # class MigrationGenerator 
+end # module ConcertoHardware

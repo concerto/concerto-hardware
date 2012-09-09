@@ -1,10 +1,16 @@
-# Note: currently, this goes directly into the app, so the
-# route from root is just /players. Eventually, we may want
-# to create the route against the engine, and then just mount
-# the engine from the main app. Or, we could put it in a namespace.
+# The routing is configured such that it does its own routing.
+# This means the central application will specifically mount
+# the engine to make the routes available in a certain sub-url,
+# for example one route would look like
+#    /hardware/players/new
+ConcertoHardware::Engine.routes.draw do
+  # Just a test welcome page, we'll replace this with something
+  # more useful later.
+  root :to => proc { |env| [200, {}, ["Welcome to the hardware plugin!"]] }
 
-Rails.application.routes.draw do
+  # The scope just refers to the module where the controller lives
+  # and does not affect the routing URL.
   scope :module => "ConcertoHardware" do
-    resources :players
-   end
+   resources :players
+  end
 end

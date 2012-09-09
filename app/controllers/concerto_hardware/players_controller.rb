@@ -1,6 +1,7 @@
 module ConcertoHardware
 class PlayersController < ApplicationController
   unloadable #marks this class for reloading in between requests
+  #include routes.named_routes.helpers
 
   # GET /players
   # GET /players.json
@@ -47,7 +48,7 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       if @player.save
-        format.html { redirect_to @player, notice => 'Player was successfully created.' }
+        format.html { redirect_to [hardware, @player], notice => 'Player was successfully created.' }
         format.json { render json => @player, status => :created, location => @player }
       else
         format.html { render action => "new" }
@@ -63,7 +64,7 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       if @player.update_attributes(params[:player])
-        format.html { redirect_to @player, notice => 'Player was successfully updated.' }
+        format.html { redirect_to [hardware, @player], notice => 'Player was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action => "edit" }
@@ -79,7 +80,7 @@ class PlayersController < ApplicationController
     @player.destroy
 
     respond_to do |format|
-      format.html { redirect_to players_url }
+      format.html { redirect_to hardware.players_url }
       format.json { head :no_content }
     end
   end

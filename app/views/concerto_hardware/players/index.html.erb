@@ -1,5 +1,4 @@
 <h1>Listing players</h1>
-
 <table>
   <tr>
     <th>Secret</th>
@@ -17,13 +16,16 @@
     <td><%= player.ip_address %></td>
     <td><%= player.screen_id %></td>
     <td><%= player.activated %></td>
-    <td><%= link_to 'Show', player %></td>
-    <td><%= link_to 'Edit', edit_player_path(player) %></td>
-    <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%#= link_to 'Show', player %></td>
+    <td><%= link_to 'Edit', hardware.edit_player_path(player) %></td>
+    <td><%= link_to 'Destroy', [hardware, player], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Player', new_player_path %>
+<%= link_to 'New Player', hardware.new_player_path %>
+
+<%# for demo purposes: %>
+<p>Note: the poll interval is currently set to <%=ConcertoConfig[:poll_interval]%> seconds.</p>

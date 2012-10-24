@@ -21,11 +21,27 @@ module ConcertoHardware
 			      :description => "Client polling interval in seconds")
     # Step 2: Register Routes
     plugin.request_route("hardware", ConcertoHardware::Engine)
-
-    # Step 3: Register Callbacks
-    #   (coming soon)
   end
 
+  # This method will be called at the beginning of a request.
+  # The plugin should respond with any callbacks that apply to the named
+  # controller.
+  def self.get_callbacks(controller_name)
+    callbacks =[]
+    if controller_name == "ScreensController"
+      callbacks << {
+        :name => :show,
+        :filter_list => :before,
+        :block => Proc.new do
+          @c2hw = "Concerto Hardware is in the house with " +
+		  @screen.name
+
+        end
+      }
+    end
+    return callbacks
+  end
+  
   # Playing around with this idea...
   def self.install_plugin
   end

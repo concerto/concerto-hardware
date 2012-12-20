@@ -1,3 +1,5 @@
+require "lib/concerto/plugin_library"
+
 module ConcertoHardware
   class Engine < Rails::Engine
     # The engine name will be the name of the class
@@ -5,6 +7,20 @@ module ConcertoHardware
     engine_name 'hardware'
 
     #isolate_namespace ConcertoHardware
+    
+    include Concerto::PluginLibrary::ClassMethods
+
+    add_controller_hook "ScreensController", :show, :before do
+      logger.info "ConcertoPlugin chook eval"
+      @player = Player.find_by_screen_id(@screen.id)
+    end
+
+    add_view_hook "ScreensController", :screen_details, :partial => "concerto_hardware/screens/screen_link"
+    add_view_hook "ScreensController", :screen_details, :text => "<p><b>All systems:</b> go</p>"
+    add_view_hook "ScreensController", :fake_hook, :text => "<p><b>All systems:</b> FAIL</p>"
+    add_view_hook "ScreensController", :screen_details do
+       "<p><b>Name via View Hook:</b> "+@screen.name+"</p>"
+    end
   end
 
   # This method will be called by the ConcertoPlugin module in
@@ -21,28 +37,5 @@ module ConcertoHardware
 			      :description => "Client polling interval in seconds")
     # Step 2: Register Routes
     plugin.request_route("hardware", ConcertoHardware::Engine)
-  end
-
-  # This method will be called at the beginning of a request.
-  # The plugin should respond with any callbacks that apply to the named
-  # controller.
-  def self.get_callbacks(controller_name)
-    callbacks =[]
-    if controller_name == "ScreensController"
-      callbacks << {
-        :name => :show,
-        :filter_list => :before,
-        :block => Proc.new do
-          @c2hw = "Concerto Hardware is in the house with " +
-		  @screen.name
-
-        end
-      }
-    end
-    return callbacks
-  end
-  
-  # Playing around with this idea...
-  def self.install_plugin
   end
 end

@@ -16,7 +16,7 @@
     <td><%= player.ip_address %></td>
     <td><%= player.screen_id %></td>
     <td><%= player.activated %></td>
-    <td><%#= link_to 'Show', player %></td>
+    <td><%= link_to 'Show', [hardware, player] %></td>
     <td><%= link_to 'Edit', hardware.edit_player_path(player) %></td>
     <td><%= link_to 'Destroy', [hardware, player], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

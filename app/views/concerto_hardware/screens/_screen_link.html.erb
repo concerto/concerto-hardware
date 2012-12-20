@@ -1,0 +1,6 @@
+<p><b>Hardware:</b>
+<% if @player.nil? %>
+  None (<%= link_to 'add', hardware.new_player_path %>)
+<% else %>
+  <%= link_to @screen.name+" Player", [hardware, @player] %>
+<% end %>

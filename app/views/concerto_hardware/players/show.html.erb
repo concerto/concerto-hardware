@@ -12,7 +12,11 @@
 
 <p>
   <b>Screen:</b>
-  <%= @player.screen_id %>
+  <% if @player.screen.nil? %>
+    Not found
+  <% else %>
+    <%= link_to @player.screen.name, [main_app, @player.screen] %>
+  <% end %>
 </p>
 
 <p>

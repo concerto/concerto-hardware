@@ -1,12 +1,12 @@
 require "lib/concerto/plugin_library"
 
 module ConcertoHardware
-  class Engine < Rails::Engine
+  class Engine < ::Rails::Engine
     # The engine name will be the name of the class
     # that contains the URL helpers for our routes.
     engine_name 'hardware'
 
-    #isolate_namespace ConcertoHardware
+    isolate_namespace ConcertoHardware
     
     include Concerto::PluginLibrary::ClassMethods
 

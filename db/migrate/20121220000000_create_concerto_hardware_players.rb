@@ -1,6 +1,6 @@
-class CreatePlayers < ActiveRecord::Migration
+class CreateConcertoHardwarePlayers < ActiveRecord::Migration
   def change
-    create_table :players do |t|
+    create_table :concerto_hardware_players do |t|
       t.string :secret
       t.string :ip_address
       t.integer :screen_id

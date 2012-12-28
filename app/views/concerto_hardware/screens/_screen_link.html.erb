@@ -1,6 +1,18 @@
-<p><b>Hardware:</b>
-<% if @player.nil? %>
-  None (<%= link_to 'add', hardware.new_player_path %>)
-<% else %>
-  <%= link_to @screen.name+" Player", [hardware, @player] %>
+<%# This partial will be read in the context of the main Concerto app   %>
+<%# To CanCan authorization rules for ConcertoHardware, we need to tell %>
+<%# the controller the module name for the plugin.                      %>
+<% controller.use_plugin_ability ConcertoHardware do %>
+  <p><b>Hardware:</b>
+  <% if @player.nil? %>
+    None (<%= link_to 'add', hardware.new_player_path %>)
+  <% else %>
+    <% if can? :read, @player %>
+      <%= link_to @screen.name+" Player", [hardware, @player] %>
+      <% if can? :update, @player %>
+        (<%=link_to "edit", hardware.edit_player_path(@player) %>)
+      <% end %>
+    <% else %>
+      <%= @screen.name+" Player" %>
+    <% end %>
+  <% end %>
 <% end %>

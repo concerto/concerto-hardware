@@ -15,7 +15,11 @@
   <% if @player.screen.nil? %>
     Not found
   <% else %>
-    <%= link_to @player.screen.name, [main_app, @player.screen] %>
+    <% if can? :read, @player.screen %>
+      <%= link_to @player.screen.name, [main_app, @player.screen] %>
+    <% else %>
+      <%= @player.screen.name %>
+    <% end %>
   <% end %>
 </p>
 
@@ -24,6 +28,7 @@
   <%= @player.activated %>
 </p>
 
-
-<%= link_to 'Edit', hardware.edit_player_path(@player) %> |
-<%= link_to 'Back', hardware.players_path %>
+<% if can? :edit, @player %>
+<%= link_to 'Edit', edit_player_path(@player) %> |
+<% end %>
+<%= link_to 'All Players', players_path %>

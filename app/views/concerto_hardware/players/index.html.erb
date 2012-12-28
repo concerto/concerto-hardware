@@ -17,15 +17,21 @@
     <td><%= player.screen_id %></td>
     <td><%= player.activated %></td>
     <td><%= link_to 'Show', player %></td>
-    <td><%= link_to 'Edit', edit_player_path(player) %></td>
-    <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Edit', edit_player_path(player) if can? :edit, player %></td>
+    <td>
+      <% if can? :destroy, player %>
+        <%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Player', new_player_path %>
+<% if can? :create, ConcertoHardware::Player %>
+  <%= link_to 'New Player', new_player_path %>
+<% end %>
 
 <%# for demo purposes: %>
 <p>Note: the poll interval is currently set to <%=ConcertoConfig[:poll_interval]%> seconds.</p>

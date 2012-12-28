@@ -1,5 +1,4 @@
-<%#= form_for(@player, :url=>hardware.players_path) do |f| %>
-<%= form_for([hardware, @player]) do |f| %>
+<%= form_for(@player) do |f| %>
   <% if @player.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>

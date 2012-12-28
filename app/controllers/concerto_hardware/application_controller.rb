@@ -7,5 +7,10 @@ module ConcertoHardware
   # Note that links back to the main application will need to directly
   # reference the main_app router.
   class ApplicationController < ::ApplicationController
+    def current_ability
+      # Use the Ability class defined in this engine's namespace.
+      # It is designed to also include the rules from the main app.
+      @current_ability ||= Ability.new(current_user)
+    end
   end
 end

@@ -1,11 +1,13 @@
 module ConcertoHardware
   class Engine < ::Rails::Engine
+    # Isolated Namespace enforces healthy separation from the Concerto app.
+    # Nothing else should come before this call in this class.
+    isolate_namespace ConcertoHardware
+
     # The engine name will be the name of the class
     # that contains the URL helpers for our routes.
-    #  TODO: This isn't working.
+    # This must come after isolate_namespace!
     engine_name 'hardware'
-
-    isolate_namespace ConcertoHardware
 
     # Define plugin information for the Concerto application to read.
     # Do not modify @plugin_info outside of this static configuration block.

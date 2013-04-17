@@ -23,7 +23,7 @@ module ConcertoHardware
           (owner.is_a?(User) && owner == user) ||
           (owner.is_a?(Group) && 
            (owner.leaders.include?(user)  ) ||
-            owner.user_has_permissions?(user, :regular, :screen,[:all]))
+            owner.user_has_permissions?(user, :regular, :screen,[:all])
           )
         )
       end

@@ -3,17 +3,32 @@ module ConcertoHardware
   # class for the application. We rely on the fact that it already
   # includes CanCan::Ability.
   class Ability < ::Ability
-    # TODO: Some sensible authentication rules
     def initialize(accessor)
-      Rails.logger.info "ConcertoPlugin: ConcertoHardware ability initializing"
       super # Get the main application's rules
-      # Note the inherited rules giving Admins rights to manage everything
+      # The main app will delegate to user_abilities, etc.
+      # Note the inherited rules give Admins rights to manage everything
+    end
+
+    def user_abilities(user)
+      super # Get the user rules from the main applications
 
       # For now lets make all Players readable
       can :read, Player
-    end
 
-    # TODO: extend user_abilities(user), etc., directly.
+      # Mimic the screen permissions - if you can manage the screen,
+      # you can view and manage the associated player.
+      can [:read, :update, :delete], Player do |player|
+        (not player.screen.nil?) && (owner=player.screen.owner) &&
+        (
+          (owner.is_a?(User) && owner == user) ||
+          (owner.is_a?(Group) && 
+           (owner.leaders.include?(user)  ) ||
+            owner.user_has_permissions?(user, :regular, :screen,[:all]))
+          )
+        )
+      end
+
+    end
 
   end # class Ability
 end # module ConcertoHardware

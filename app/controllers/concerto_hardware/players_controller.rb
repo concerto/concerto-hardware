@@ -20,7 +20,17 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-    @player = Player.find(params[:id])
+    if params.has_key? :screen_id
+      screen_id = params[:screen_id]
+      @player = ConcertoHardware::Player.find_by_screen_id(screen_id)
+      if @player.nil?
+        raise ActiveRecord::RecordNotFound, "Couldn't find Player with Screen ID #{screen_id}"
+      end
+    elsif params.has_key? :id
+      @player = Player.find(params[:id])
+    else
+      raise "TODO: Implement finding player info based on ID of authenticated screen."
+    end
     auth!
 
     respond_to do |format|

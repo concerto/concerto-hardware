@@ -12,8 +12,8 @@ module ConcertoHardware
     def user_abilities(user)
       super # Get the user rules from the main applications
 
-      # For now lets make all Players readable
-      can :read, Player
+      # For debugging you may want to make all Players readable
+      # can :read, Player
 
       # Mimic the screen permissions - if you can manage the screen,
       # you can view and manage the associated player.
@@ -28,7 +28,14 @@ module ConcertoHardware
         )
       end
 
-    end
+    end # user_abilities
 
+    def screen_abilities(screen)
+      can :read, Player, :screen_id => screen.id
+      # TODO: This doesn't account for public screens etc.
+      #    1. can we use public screens?
+      #    2. It would be better to directly mimic Screen permissions.
+      #           something like do |pscreen| {can? :read, pscreen} perhaps?
+    end # screen_abilities
   end # class Ability
 end # module ConcertoHardware

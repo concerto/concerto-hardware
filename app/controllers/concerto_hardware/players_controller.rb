@@ -4,6 +4,7 @@ module ConcertoHardware
 class PlayersController < ApplicationController
   unloadable #marks this class for reloading in between requests
   #include routes.named_routes.helpers
+  before_filter :screen_api
 
   # GET /players
   # GET /players.json

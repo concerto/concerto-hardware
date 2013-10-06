@@ -10,7 +10,7 @@ module ConcertoHardware
     def current_ability
       # Use the Ability class defined in this engine's namespace.
       # It is designed to also include the rules from the main app.
-      @current_ability ||= Ability.new(current_user)
+      @current_ability ||= Ability.new(current_accessor)
     end
   end
 end

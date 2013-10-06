@@ -15,27 +15,28 @@ module ConcertoHardware
       # For debugging you may want to make all Players readable
       # can :read, Player
 
-      # Mimic the screen permissions - if you can manage the screen,
-      # you can view and manage the associated player.
-      can [:read, :update, :delete], Player do |player|
-        (not player.screen.nil?) && (owner=player.screen.owner) &&
-        (
-          (owner.is_a?(User) && owner == user) ||
-          (owner.is_a?(Group) && 
-           (owner.leaders.include?(user)  ) ||
-            owner.user_has_permissions?(user, :regular, :screen,[:all])
-          )
-        )
+      # Let's defer to Concerto's rules for Screen Permissions.
+      # This will apply to both users browsing the hardware info
+      # as well as public screens in public instances accessing their data.
+      #  - Right now, only admins can create players (TODO)
+      #  - It may become desirable in the future for reading to be
+      #    restricted or curtailed if a lot of sensitive data is stored here.
+      can :read, Player do |player|
+        !player.screen.nil? and can? :read, player.screen
       end
-
+      can :update, Player do |player|
+        !player.screen.nil? and can? :update, player.screen
+      end
+      can :delete, Player do |player|
+        !player.screen.nil? and can? :delete, player.screen
+      end
     end # user_abilities
 
     def screen_abilities(screen)
+      # A logged-in screen can read its own Player information.
       can :read, Player, :screen_id => screen.id
-      # TODO: This doesn't account for public screens etc.
-      #    1. can we use public screens?
-      #    2. It would be better to directly mimic Screen permissions.
-      #           something like do |pscreen| {can? :read, pscreen} perhaps?
+      # In the future it may also need to write reporting data, so
+      # this will need to be expanded.
     end # screen_abilities
   end # class Ability
 end # module ConcertoHardware

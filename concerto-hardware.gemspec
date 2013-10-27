@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = ConcertoHardware::VERSION
   s.authors     = "Concerto Team"
   s.email       = ["team@concerto-signage.org"]
-  s.homepage    = "www.concerto-signage.org"
+  s.homepage    = "http://concerto-signage.org"
   s.summary     = "A Rails Engine for managing Bandshell-powered Concerto hardware"
   s.description = "A Rails Engine for managing Bandshell-powered Concerto hardware"
 

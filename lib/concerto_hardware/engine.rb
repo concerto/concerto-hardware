@@ -36,7 +36,6 @@ module ConcertoHardware
 
         add_view_hook "ScreensController", :screen_details, :partial => "concerto_hardware/screens/screen_link"
         add_view_hook "ScreensController", :screen_details, :text => "<p><b>All systems:</b> go</p>"
-        add_view_hook "ScreensController", :fake_hook, :text => "<p><b>All systems:</b> FAIL</p>"
         add_view_hook "ScreensController", :screen_details do
           "<p><b>Name via View Hook:</b> "+@screen.name+"</p>"
         end

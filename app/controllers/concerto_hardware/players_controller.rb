@@ -44,6 +44,10 @@ class PlayersController < ApplicationController
   # GET /players/new.json
   def new
     @player = Player.new
+    if !params[:screen_id].nil?
+      # TODO: Error handling
+      @player.screen = Screen.find(params[:screen_id])
+    end
     auth!
 
     respond_to do |format|

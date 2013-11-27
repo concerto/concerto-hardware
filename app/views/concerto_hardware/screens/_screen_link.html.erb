@@ -3,7 +3,7 @@
 <%# ConcertoHardware authorization rules are automatically provided.    %>
 <p><b>Hardware:</b>
 <% if @player.nil? %>
-  None (<%= link_to 'add', hardware.new_player_path %>)
+  None (<%= link_to 'add', hardware.new_player_path(:screen_id => @screen.id) %>)
 <% else %>
   <% if can? :read, @player %>
     <%= link_to @screen.name+" Player", [hardware, @player] %>

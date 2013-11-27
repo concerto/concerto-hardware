@@ -12,16 +12,20 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :screen_id %><br />
+    <% if @player.screen.nil? %>
+      <%= f.number_field :screen_id %>
+    <% else %>
+      <%= @player.screen.name %>
+    <% end %>     
+  </div>
+  <div class="field">
     <%= f.label :secret %><br />
     <%= f.text_field :secret %>
   </div>
   <div class="field">
     <%= f.label :ip_address %><br />
     <%= f.text_field :ip_address %>
-  </div>
-  <div class="field">
-    <%= f.label :screen_id %><br />
-    <%= f.number_field :screen_id %>
   </div>
   <div class="field">
     <%= f.label :activated %><br />

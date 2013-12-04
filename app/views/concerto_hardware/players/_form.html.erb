@@ -20,10 +20,6 @@
     <% end %>     
   </div>
   <div class="field">
-    <%= f.label :secret %><br />
-    <%= f.text_field :secret %>
-  </div>
-  <div class="field">
     <%= f.label :ip_address %><br />
     <%= f.text_field :ip_address %>
   </div>
@@ -31,6 +27,34 @@
     <%= f.label :activated %><br />
     <%= f.check_box :activated %>
   </div>
+
+  <!-- Screen on/off times. Good luck, UI designer. -->
+  <div class="field">
+    <%= f.label :wkday_on_time %>(<%=@player.wkday_on_time.inspect%>)<br />
+    <%= f.time_select :wkday_on_time %>
+  </div>
+  <div class="field">
+    <%= f.label :wkday_off_time %><br />
+    <%= f.time_select :wkday_off_time %>
+  </div>
+  <div class="field">
+    <%= f.label :wknd_disable %><br />
+    <%= f.check_box :wknd_disable %>
+  </div>
+  <div class="field">
+    <%= f.label :wknd_on_time %><br />
+    <%= f.time_select :wknd_on_time %>
+  </div>
+  <div class="field">
+    <%= f.label :wknd_off_time %><br />
+    <%= f.time_select :wknd_off_time %>
+  </div>
+  <div class="field">
+    <%= f.label :force_off %> (temporarily turns off the screen until midngith tonight)<br />
+    <%= f.check_box :force_off %>
+  </div>
+  <p><em>All time fields should be entered in 24 hour format (HH:mm), for example 23:30 for 11:30 PM.</em></p>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -14,9 +14,7 @@ ConcertoHardware::Engine.routes.draw do
     collection do
       # Look up a player based on the screen ID.
       match 'by_screen/:screen_id' => ConcertoHardware::PlayersController.action(:show)
-
       # Show the player associated with the logged in screen.
-      # Not implemented yet.
       match 'current' => ConcertoHardware::PlayersController.action(:show)
     end
   end

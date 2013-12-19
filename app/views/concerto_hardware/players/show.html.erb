@@ -1,38 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Ip address:</b>
-  <%= @player.ip_address %>
-</p>
-
-<p>
-  <b>Screen:</b>
-  <% if @player.screen.nil? %>
-    Not found
-  <% else %>
-    <% if can? :read, @player.screen %>
-      <%= link_to @player.screen.name, [main_app, @player.screen] %>
-    <% else %>
-      <%= @player.screen.name %>
-    <% end %>
-  <% end %>
-</p>
-
-<p>
-  <b>Activated:</b>
-  <%= @player.activated %>
-</p>
-
-<p>
-  <b>Screen on/off times:</b>
-  <ul>
-    <% @player.describe_screen_on_off.each do |rule| %>
-      <li><%=rule%></li>
-    <% end %>
-  </ul>
-</p>
-
-<% if can? :edit, @player %>
-<%= link_to 'Edit', edit_player_path(@player) %> |
-<% end %>
-<%= link_to 'All Players', players_path %>
+<section class="viewblock">
+  <header class="viewblock-header" id="screens-header">
+    <%= render :partial => "show_header" %>
+  </header>
+  <div class="viewblock-cont">
+    <%= render :partial => "show_body" %>    
+  </div>
+</section>

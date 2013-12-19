@@ -11,3 +11,10 @@ en:
         wknd_disable: 'Disable on weekends'
         wknd_on_time: 'Weekend turn On time'
         wknd_off_time: 'Weekend turn Off time'
+
+  concerto_hardware:
+    players:
+      new:
+        header: 'New %{screen} Player'
+      edit:
+        header: 'Edit %{screen} Player'        

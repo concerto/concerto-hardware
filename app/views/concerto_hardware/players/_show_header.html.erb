@@ -1,0 +1,17 @@
+<div class="viewblock-header_right">
+  <div class="button-padding">
+    <% if can? :update, @player %>
+      <%= link_to t(:edit_model, :model => ConcertoHardware::Player.model_name.human), edit_player_path(@player), :class => "btn" %>
+    <% end %>
+    <% if can? :delete, @player %>
+      <%= link_to t(:destroy_model, :model => ConcertoHardware::Player.model_name.human), @player, :data => { :confirm => t(:are_you_sure_delete_model_key, :model => ConcertoHardware::Player.model_name.human, :key => @player.screen.name) }, :method => :delete, :class => "btn" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="default-padding">
+  <h1>
+    <%= link_to t(:all_model, :model => ConcertoHardware::Player.model_name.human.pluralize), players_path %> &gt; 
+    <%= @player.screen.name + " Player" %>
+  </h1>
+</div>

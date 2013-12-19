@@ -20,7 +20,9 @@ module ConcertoHardware
         # Administrators can change the value through the Concerto dashboard.
         add_config("poll_interval", "60", 
                    :value_type => "integer",
-                   :description => "Client polling interval in seconds")
+                   :category => "System",
+                   :seq_no => 999,
+                   :description => "Client hardware polling interval in seconds")
 
         # Some code to run at app boot
         init do
@@ -35,10 +37,6 @@ module ConcertoHardware
         end
 
         add_view_hook "ScreensController", :screen_details, :partial => "concerto_hardware/screens/screen_link"
-        add_view_hook "ScreensController", :screen_details, :text => "<p><b>All systems:</b> go</p>"
-        add_view_hook "ScreensController", :screen_details do
-          "<p><b>Name via View Hook:</b> "+@screen.name+"</p>"
-        end
       end
     end
   end # class Engine

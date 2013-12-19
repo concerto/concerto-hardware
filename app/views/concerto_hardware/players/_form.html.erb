@@ -1,61 +1,80 @@
 <%= form_for(@player) do |f| %>
-  <% if @player.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
+  <%= render :partial => "layouts/errors", :object => @player %>
 
-      <ul>
-      <% @player.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <fieldset>
+    <legend><span><%= t('.provide_details') %></span></legend>
+
+    <div class="clearfix">
+      <%= f.label :screen_id %>
+      <div class="input">
+        <% if @player.screen.nil? %>
+          <%= f.number_field :screen_id %>
+        <% else %>
+          <%= @player.screen.name %>
+        <% end %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :screen_id %><br />
-    <% if @player.screen.nil? %>
-      <%= f.number_field :screen_id %>
-    <% else %>
-      <%= @player.screen.name %>
-    <% end %>     
-  </div>
-  <div class="field">
-    <%= f.label :ip_address %><br />
-    <%= f.text_field :ip_address %>
-  </div>
-  <div class="field">
-    <%= f.label :activated %><br />
-    <%= f.check_box :activated %>
+    <div class="clearfix">
+      <%= f.label :ip_address %>
+      <div class="input">
+        <%= f.text_field :ip_address %>
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <div class="input checkbox">
+        <ul class="inputs-list">
+          <li><%= f.check_box :activated %> <%= f.label :activated %></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Screen on/off times. Good luck, UI designer. -->
+    <div class="clearfix">
+      <%= f.label :wkday_on_time %>
+      <div class="input">
+        <%= f.time_select :wkday_on_time %>
+      </div>
+    </div>
+    <div class="clearfix">
+      <%= f.label :wkday_off_time %>
+      <div class="input">
+        <%= f.time_select :wkday_off_time %>
+      </div>
+    </div>
+    <div class="clearfix">
+      <div class="input checkbox">
+        <ul class="inputs-list">
+          <li><%= f.check_box :wknd_disable %> <%= f.label :wknd_disable %></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clearfix">
+      <%= f.label :wknd_on_time %>
+      <div class="input">
+        <%= f.time_select :wknd_on_time %>
+      </div>
+    </div>
+    <div class="clearfix">
+      <%= f.label :wknd_off_time %>
+      <div class="input">
+        <%= f.time_select :wknd_off_time %>
+      </div>
+    </div>
+    <div class="clearfix">
+      <div class="input checkbox">
+        <ul class="inputs-list">
+          <li><%= f.check_box :force_off %> <%= f.label :force_off %> (temporarily turns off the screen until midnight tonight)</li>
+        </ul>
+      </div>
+    </div>
+    <p><em>All time fields should be entered in 24 hour format (HH:mm), for example 23:30 for 11:30 PM.</em></p>
+  </fieldset>
+
+  <div class="submit_bar actions">
+    <%= f.submit button_text, :class => "btn btn-primary" %>
+    <%= link_to t(:cancel), (@player.persisted? ? player_path : players_path), :class => "btn" %>
   </div>
 
-  <!-- Screen on/off times. Good luck, UI designer. -->
-  <div class="field">
-    <%= f.label :wkday_on_time %>(<%=@player.wkday_on_time.inspect%>)<br />
-    <%= f.time_select :wkday_on_time %>
-  </div>
-  <div class="field">
-    <%= f.label :wkday_off_time %><br />
-    <%= f.time_select :wkday_off_time %>
-  </div>
-  <div class="field">
-    <%= f.label :wknd_disable %><br />
-    <%= f.check_box :wknd_disable %>
-  </div>
-  <div class="field">
-    <%= f.label :wknd_on_time %><br />
-    <%= f.time_select :wknd_on_time %>
-  </div>
-  <div class="field">
-    <%= f.label :wknd_off_time %><br />
-    <%= f.time_select :wknd_off_time %>
-  </div>
-  <div class="field">
-    <%= f.label :force_off %> (temporarily turns off the screen until midngith tonight)<br />
-    <%= f.check_box :force_off %>
-  </div>
-  <p><em>All time fields should be entered in 24 hour format (HH:mm), for example 23:30 for 11:30 PM.</em></p>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

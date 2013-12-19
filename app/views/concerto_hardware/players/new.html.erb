@@ -1,5 +1,8 @@
-<h1>New player</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', players_path %>
+<section class="viewblock">
+	<header class="viewblock-header">
+		<h1 class="default-padding"><%= t(:new_model, :model => ConcertoHardware::Player.model_name.human) %></h1>
+	</header>
+	<div class="viewblock-cont">
+		<%= render :partial => 'form', :locals => { :button_text => t(:create_model, :model => ConcertoHardware::Player.model_name.human) } %>
+	</div>
+</section>

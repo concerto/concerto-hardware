@@ -1,35 +1,49 @@
-<h1>Listing players</h1>
-<table>
-  <tr>
-    <th>Ip address</th>
-    <th>Screen</th>
-    <th>Activated</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<section class="viewblock">
+  <header class="viewblock-header">
+    <div class="viewblock-header_right">
+      <div class="button-padding">
+        <% if can? :create, ConcertoHardware::Player %>
+          <%= link_to t(:new_model, :model => ConcertoHardware::Player.model_name.human), new_player_path, :class => "btn" %>
+        <% end %>
+      </div>
+    </div>
+    <h1 class="default-padding">
+      <%= t(:all_model, :model => ConcertoHardware::Player.model_name.human.pluralize) %>
+    </h1>
+  </header>
+  <div class="viewblock-cont">
+    <table>
+      <tr>
+        <th><%= ConcertoHardware::Player.human_attribute_name(:ip_address) %></th>
+        <th><%= ConcertoHardware::Player.human_attribute_name(:screen_id) %></th>
+        <th><%= ConcertoHardware::Player.human_attribute_name(:activated) %></th>
+        <th>Actions</th>
+      </tr>
 
-<% @players.each do |player| %>
-  <tr>
-    <td><%= player.ip_address %></td>
-    <td><%= player.screen_id %></td>
-    <td><%= player.activated %></td>
-    <td><%= link_to 'Show', player %></td>
-    <td><%= link_to 'Edit', edit_player_path(player) if can? :edit, player %></td>
-    <td>
-      <% if can? :destroy, player %>
-        <%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %>
+      <% @players.each do |player| %>
+        <tr>
+          <td><%= player.ip_address %></td>
+          <td><%= player.screen.name %></td>
+          <td><%= player.activated %></td>
+
+          <td>
+            <% if can? :read, player %>
+              <%= link_to t(:show, :model => ConcertoHardware::Player.model_name.human), player, :class => "btn" %>
+            <% end %>
+            <% if can? :edit, player %>
+              <%= link_to t(:edit, :model => ConcertoHardware::Player.model_name.human), edit_player_path(player), :class => "btn" %>
+            <% end %>
+            <% if can? :delete, player %>
+                <%= link_to t(:destroy, :model => ConcertoHardware::Player), player, 
+        :data => { :confirm => t(:are_you_sure_delete_model_key, :model =>ConcertoHardware::Player.model_name.human, :key => player.screen.name) }, :method => :delete, :class => "btn" %>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-    </td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<% if can? :create, ConcertoHardware::Player %>
-  <%= link_to 'New Player', new_player_path %>
-<% end %>
-
-<%# for demo purposes: %>
-<p>Note: the poll interval is currently set to <%=ConcertoConfig[:poll_interval]%> seconds.</p>
+    </table>
+  </div>
+</section>
+<div class="default-padding">
+    <%# for demo purposes: %>
+    Note: the poll interval is currently set to <%=ConcertoConfig[:poll_interval]%> seconds.
+</div>

@@ -1,0 +1,13 @@
+en:
+  activerecord:
+    models:
+      concerto_hardware/player: 'Player'
+    attributes:
+      concerto_hardware/player:
+        activated: 'Active'
+        ip_address: 'IP Address'
+        wkday_on_time: 'Weekday turn On time'
+        wkday_off_time: 'Weekday turn Off time'
+        wknd_disable: 'Disable on weekends'
+        wknd_on_time: 'Weekend turn On time'
+        wknd_off_time: 'Weekend turn Off time'

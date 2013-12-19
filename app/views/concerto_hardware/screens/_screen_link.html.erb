@@ -1,16 +1,27 @@
 <%# This partial will be read in the context of the main Concerto app.  %>
 <%# URL helpers require use of the 'hardware' routing helper.           %>
 <%# ConcertoHardware authorization rules are automatically provided.    %>
-<p><b>Hardware:</b>
-<% if @player.nil? %>
-  None (<%= link_to 'add', hardware.new_player_path(:screen_id => @screen.id) %>)
-<% else %>
-  <% if can? :read, @player %>
-    <%= link_to @screen.name+" Player", [hardware, @player] %>
-    <% if can? :update, @player %>
-      (<%=link_to "edit", hardware.edit_player_path(@player) %>)
-    <% end %>
-  <% else %>
-    <%= @screen.name+" Player" %>
-  <% end %>
-<% end %>
+<p class="uppercase" style="margin-bottom: 0;"><small><b>Hardware Player</b></small></p>
+<p>
+	<% if @player.nil? %>
+	  None (<%= link_to 'add', hardware.new_player_path(:screen_id => @screen.id) %>)<br>
+	<% else %>
+	  <% if can? :read, @player %>
+	    <b><%= @screen.name+" Player" %></b>
+	    <% if can? :update, @player %>
+	      (<%=link_to "edit", hardware.edit_player_path(@player) %>)<br>
+	    <% end %>
+		  <b>IP Address:</b> <%= @player.ip_address %><br>
+		  <b>Activated:</b> <%= @player.activated %><br>
+		  <b>Screen On/Off Times:</b>
+		  <ul>
+		    <% @player.describe_screen_on_off.each do |rule| %>
+		      <li><%=rule%></li>
+		    <% end %>
+		  </ul>
+		  <br>
+	  <% else %>
+	    <%= @screen.name+" Player" %><br>
+	  <% end %>
+	<% end %>
+</p>

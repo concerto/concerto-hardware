@@ -1,6 +1,9 @@
-<h1>Editing player</h1>
+<section class="viewblock">
+  <header class="viewblock-header">
+    <h1 class="default-padding"><%= t(:edit_model, :model => ConcertoHardware::Player.model_name.human) %></h1>
+  </header>
+  <div class="viewblock-cont">
+    <%= render :partial => 'form', :locals => { :button_text => t(:update_model, :model => ConcertoHardware::Player.model_name.human) } %>
+  </div>
+</section>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @player %> |
-<%= link_to 'Back', players_path %>

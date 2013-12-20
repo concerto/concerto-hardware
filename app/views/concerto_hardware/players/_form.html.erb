@@ -4,16 +4,7 @@
   <fieldset>
     <legend><span><%= t('.provide_details') %></span></legend>
 
-    <div class="clearfix">
-      <%= f.label :screen_id %>
-      <div class="input">
-        <% if @player.screen.nil? %>
-          <%= f.number_field :screen_id %>
-        <% else %>
-          <%= @player.screen.name %>
-        <% end %>
-      </div>
-    </div>
+    <%= f.hidden_field :screen_id %>
 
     <div class="clearfix">
       <%= f.label :ip_address %>

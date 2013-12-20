@@ -31,18 +31,23 @@
     </div>
 
     <!-- Screen on/off times. Good luck, UI designer. -->
-    <div class="clearfix">
-      <%= f.label :wkday_on_time %>
-      <div class="input">
-        <%= f.time_select :wkday_on_time %>
+    <div class="datepair">
+      <div class="clearfix">
+        <%= f.label :wkday_on_time %>
+        <div class="input-prepend">
+          <span class="add-on"><%= t(:at) %></span>
+          <%= f.text_field(:wkday_on_time, :maxlength => 20, :class => "time start ui-timepicker-input timefield input-small", :value => ConcertoConfig[:content_default_start_time]) %>
+        </div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :wkday_off_time %>
+        <div class="input-prepend">
+          <span class="add-on"><%= t(:at) %></span>
+          <%= f.text_field(:wkday_off_time, :maxlength => 20, :class => "time end ui-timepicker-input timefield input-small", :value => ConcertoConfig[:content_default_end_time]) %>
+        </div>
       </div>
     </div>
-    <div class="clearfix">
-      <%= f.label :wkday_off_time %>
-      <div class="input">
-        <%= f.time_select :wkday_off_time %>
-      </div>
-    </div>
+
     <div class="clearfix">
       <div class="input checkbox">
         <ul class="inputs-list">
@@ -50,16 +55,20 @@
         </ul>
       </div>
     </div>
-    <div class="clearfix">
-      <%= f.label :wknd_on_time %>
-      <div class="input">
-        <%= f.time_select :wknd_on_time %>
+    <div class="datepair">
+      <div class="clearfix">
+        <%= f.label :wknd_on_time %>
+        <div class="input-prepend">
+          <span class="add-on"><%= t(:at) %></span>
+          <%= f.text_field(:wknd_on_time, :maxlength => 20, :class => "time start timefield input-small", :value => ConcertoConfig[:content_default_start_time]) %>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <%= f.label :wknd_off_time %>
-      <div class="input">
-        <%= f.time_select :wknd_off_time %>
+      <div class="clearfix">
+        <%= f.label :wknd_off_time %>
+        <div class="input-prepend">
+          <span class="add-on"><%= t(:at) %></span>
+          <%= f.text_field(:wknd_off_time, :maxlength => 20, :class => "time end timefield input-small", :value => ConcertoConfig[:content_default_end_time]) %>
+        </div>
       </div>
     </div>
     <div class="clearfix">

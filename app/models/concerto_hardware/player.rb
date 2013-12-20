@@ -138,7 +138,14 @@ module ConcertoHardware
     end
 
     def fmt_time(timeobj)
-      timeobj.strftime("%H:%M")
+      #timeobj.strftime("%H:%M")
+      if !timeobj.nil?
+        if timeobj.is_a?(String)
+          timeobj
+        else
+          timeobj.strftime("%l:%M%P")
+        end
+      end
     end
 
   end # class Player

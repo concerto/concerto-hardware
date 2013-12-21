@@ -1,27 +1,48 @@
 <%# This partial will be read in the context of the main Concerto app.  %>
 <%# URL helpers require use of the 'hardware' routing helper.           %>
 <%# ConcertoHardware authorization rules are automatically provided.    %>
-<p class="uppercase" style="margin-bottom: 0;"><small><b>Hardware Player</b></small></p>
-<p>
-	<% if @player.nil? %>
-	  None (<%= link_to 'add', hardware.new_player_path(:screen_id => @screen.id) %>)<br>
-	<% else %>
-	  <% if can? :read, @player %>
-	    <b><%= @screen.name+" Player" %></b>
-	    <% if can? :update, @player %>
-	      (<%=link_to "edit", hardware.edit_player_path(@player) %>)<br>
-	    <% end %>
-		  <b>IP Address:</b> <%= @player.ip_address %><br>
-		  <b>Activated:</b> <%= @player.activated %><br>
-		  <b>Screen On/Off Times:</b>
-		  <ul>
-		    <% @player.describe_screen_on_off.each do |rule| %>
-		      <li><%=rule%></li>
-		    <% end %>
-		  </ul>
-		  <br>
-	  <% else %>
-	    <%= @screen.name+" Player" %><br>
-	  <% end %>
-	<% end %>
-</p>
+
+<section class="viewblock">
+  <header class="viewblock-header">
+    <div class="viewblock-header_right">
+      <div class="button-padding">
+        <% if @player.nil? %>
+          <%= link_to 'Add Player', hardware.new_player_path(:screen_id => @screen.id), :class => "btn" %>
+        <% else %>
+          <% if can? :update, @player %>
+            <%= link_to 'Edit Player', hardware.edit_player_path(@player), :class => "btn" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="default-padding">
+      <h1>Player Hardware</h1>
+    </div>
+  </header>
+  <div class="viewblock-cont">
+    <div class="default-padding">
+      <% if @player.nil? %>
+        <div class="alert alert-block alert-zero">
+          <p class="alert-heading"><%= t('.no_player') %></p>
+          <% if can? :update, @player %>
+            <%= link_to t('.add_player_msg'), hardware.new_player_path(:screen_id => @screen.id) %>
+          <% end %>
+        </div>
+      <% else %>
+        <h3><%= @screen.name + " Player" %></h3>
+        <p><b><%= @player.activated ? t('.activated') : t('.not_activated') %></b></p>
+        <br />
+        <% if can? :read, @player %>
+          <p><b>IP Address:</b> <%= @player.ip_address %></p>
+          <p><b>Screen On/Off Times:</b></p>
+          <ul>
+            <% @player.describe_screen_on_off.each do |rule| %>
+              <li><%= rule %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

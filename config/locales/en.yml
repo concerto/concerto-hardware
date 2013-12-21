@@ -17,4 +17,13 @@ en:
       new:
         header: 'New %{screen} Player'
       edit:
-        header: 'Edit %{screen} Player'        
+        header: 'Edit %{screen} Player'
+
+    screens:
+      screen_link:
+        concerto_player: "Concerto Player"
+        no_player_header: "No Player"
+        no_player_msg: "A Concerto Player has not yet been connected to this screen."
+        add_player_msg: "Specify a Player manually."
+        activated: "Activated"
+        not_activated: "Not Activated"

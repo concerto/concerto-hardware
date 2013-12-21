@@ -17,14 +17,15 @@
     </div>
 
     <div class="default-padding">
-      <h1>Player Hardware</h1>
+      <h1><%= t('.concerto_player') %></h1>
     </div>
   </header>
   <div class="viewblock-cont">
     <div class="default-padding">
       <% if @player.nil? %>
         <div class="alert alert-block alert-zero">
-          <p class="alert-heading"><%= t('.no_player') %></p>
+          <p class="alert-heading"><%= t('.no_player_header') %></p>
+          <p><%= t('.no_player_msg') %></p>
           <% if can? :update, @player %>
             <%= link_to t('.add_player_msg'), hardware.new_player_path(:screen_id => @screen.id) %>
           <% end %>

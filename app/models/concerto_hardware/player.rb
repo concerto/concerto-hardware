@@ -29,8 +29,27 @@ module ConcertoHardware
     attr_accessor :wknd_disable
     attr_accessor :force_off
 
+    after_initialize :default_values
     after_find :retrieve_screen_on_off
     before_save :process_screen_on_off
+
+    def default_values
+      self.screen_on_off ||= [
+        {
+          :action => "on",
+          :wkday => "12345", # M-F
+          :time_after => "07:00",
+          :time_before => "20:00"
+        },
+        {
+          :action => "on",
+          :wkday => "06", # Sun, Sat
+          :time_after => "09:00",
+          :time_before => "20:00"
+        }
+      ].to_json
+      retrieve_screen_on_off #populate the virtual attributes.
+    end
 
     # Take screen controls from the form and store them
     # in a standard format that the player will understand.

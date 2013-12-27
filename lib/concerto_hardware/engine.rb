@@ -36,6 +36,31 @@ module ConcertoHardware
           @player = Player.find_by_screen_id(@screen.id)
         end
 
+        add_controller_hook "ScreensController", :change, :before do
+          Rails.lpogger.info "concerto-hardware: screen change callback"
+          if @screen.auth_in_progress? # have a temp token to look at
+            if Player.where(:screen_id => @screen.id).count == 0 # No existing player
+              if ((@screen.temp_token.length > Screen::TEMP_TOKEN_LENGTH) and
+                  (@screen.temp_token[Screen::TEMP_TOKEN_LENGTH].downcase == "s"))
+                # Okay, we have a legit player situation.
+                Rails.logger.info "concerto-hardware: creating Player for the new Screen!"
+                flash[:notice] ||= ""
+                player = Player.new
+                player.screen_id = @screen.id
+                player.activated = true
+                if player.save
+                  Rails.logger.info "   Success!"
+                  #flash[:notice] << " A player hardware profile was automatically created!"
+                  # TODO: User notification.
+                else
+                  Rails.logger.info "   Failed."
+                  #flash[:notice] << " We could not create a player hardware profile, however."
+                end
+              end
+            end
+          end
+        end
+
         add_view_hook "ScreensController", :screen_details, :partial => "concerto_hardware/screens/screen_link"
       end
     end

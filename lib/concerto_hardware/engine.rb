@@ -37,7 +37,7 @@ module ConcertoHardware
         end
 
         add_controller_hook "ScreensController", :change, :before do
-          Rails.lpogger.info "concerto-hardware: screen change callback"
+          Rails.logger.info "concerto-hardware: screen change callback"
           if @screen.auth_in_progress? # have a temp token to look at
             if Player.where(:screen_id => @screen.id).count == 0 # No existing player
               if ((@screen.temp_token.length > Screen::TEMP_TOKEN_LENGTH) and

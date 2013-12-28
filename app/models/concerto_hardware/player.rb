@@ -122,13 +122,13 @@ module ConcertoHardware
       elsif !screen_on_off_valid
         rules << "On/off rules are invalid. Edit and save the Player to fix."
       else
-        rules << "Weekdays: on at "+fmt_time(wkday_on_time)+", "+
-          "off at "+fmt_time(wkday_off_time)+"."
+        rules << "Weekdays: on at "+fmt_time(wkday_on_time, "%l:%M%P")+", "+
+          "off at "+fmt_time(wkday_off_time, "%l:%M%P")+"."
         if wknd_disable
           rules << "Weekends: off."
         else
-          rules << "Weekends: on at "+fmt_time(wknd_on_time)+", "+
-            "off at "+fmt_time(wknd_off_time)+"."
+          rules << "Weekends: on at "+fmt_time(wknd_on_time, "%l:%M%P")+", "+
+            "off at "+fmt_time(wknd_off_time, "%l:%M%P")+"."
         end
         if force_off
           rules << "Manual override: screen will be off until midnight tonight."
@@ -137,8 +137,13 @@ module ConcertoHardware
       rules
     end
 
-    def fmt_time(timeobj)
-      timeobj.strftime("%H:%M")
+    def fmt_time(timeobj, fmt = "%H:%M")
+      if !timeobj.nil?
+        if timeobj.is_a?(String)
+          timeobj = Time.parse(timeobj)
+        end
+        timeobj.strftime(fmt)
+      end
     end
 
   end # class Player

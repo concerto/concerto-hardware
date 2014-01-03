@@ -161,7 +161,7 @@ module ConcertoHardware
         if timeobj.is_a?(String)
           timeobj = Time.parse(timeobj)
         end
-        timeobj.strftime(fmt)
+        timeobj.strftime(fmt).strip
       end
     end
 

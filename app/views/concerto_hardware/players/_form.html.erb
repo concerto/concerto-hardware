@@ -22,20 +22,18 @@
     </div>
 
     <!-- Screen on/off times. Good luck, UI designer. -->
-    <div class="datepair">
-      <div class="clearfix">
-        <%= f.label :wkday_on_time %>
-        <div class="input-prepend">
-          <span class="add-on"><%= t(:at) %></span>
-          <%= f.text_field(:wkday_on_time, :maxlength => 20, :class => "time start timefield input-small", :value => @player.fmt_time(@player.wkday_on_time, "%l:%M%P") || ConcertoConfig[:content_default_start_time]) %>
-        </div>
+    <div class="clearfix">
+      <%= f.label :wkday_on_time %>
+      <div class="input-prepend">
+        <span class="add-on"><%= t(:at) %></span>
+        <%= f.text_field(:wkday_on_time, :maxlength => 20, :class => "timefield input-small", :value => @player.fmt_time(@player.wkday_on_time, "%l:%M%P") || ConcertoConfig[:content_default_start_time]) %>
       </div>
-      <div class="clearfix">
-        <%= f.label :wkday_off_time %>
-        <div class="input-prepend">
-          <span class="add-on"><%= t(:at) %></span>
-          <%= f.text_field(:wkday_off_time, :maxlength => 20, :class => "time end timefield input-small", :value => @player.fmt_time(@player.wkday_off_time, "%l:%M%P") || ConcertoConfig[:content_default_end_time]) %>
-        </div>
+    </div>
+    <div class="clearfix">
+      <%= f.label :wkday_off_time %>
+      <div class="input-prepend">
+        <span class="add-on"><%= t(:at) %></span>
+        <%= f.text_field(:wkday_off_time, :maxlength => 20, :class => "timefield input-small", :value => @player.fmt_time(@player.wkday_off_time, "%l:%M%P") || ConcertoConfig[:content_default_end_time]) %>
       </div>
     </div>
 
@@ -46,22 +44,21 @@
         </ul>
       </div>
     </div>
-    <div class="datepair">
-      <div class="clearfix">
-        <%= f.label :wknd_on_time %>
-        <div class="input-prepend">
-          <span class="add-on"><%= t(:at) %></span>
-          <%= f.text_field(:wknd_on_time, :maxlength => 20, :class => "time start timefield input-small", :value => @player.fmt_time(@player.wknd_on_time, "%l:%M%P") || ConcertoConfig[:content_default_start_time]) %>
-        </div>
-      </div>
-      <div class="clearfix">
-        <%= f.label :wknd_off_time %>
-        <div class="input-prepend">
-          <span class="add-on"><%= t(:at) %></span>
-          <%= f.text_field(:wknd_off_time, :maxlength => 20, :class => "time end timefield input-small", :value => @player.fmt_time(@player.wknd_off_time, "%l:%M%P") || ConcertoConfig[:content_default_end_time]) %>
-        </div>
+    <div class="clearfix">
+      <%= f.label :wknd_on_time %>
+      <div class="input-prepend">
+        <span class="add-on"><%= t(:at) %></span>
+        <%= f.text_field(:wknd_on_time, :maxlength => 20, :class => "timefield input-small", :value => @player.fmt_time(@player.wknd_on_time, "%l:%M%P") || ConcertoConfig[:content_default_start_time]) %>
       </div>
     </div>
+    <div class="clearfix">
+      <%= f.label :wknd_off_time %>
+      <div class="input-prepend">
+        <span class="add-on"><%= t(:at) %></span>
+        <%= f.text_field(:wknd_off_time, :maxlength => 20, :class => "timefield input-small", :value => @player.fmt_time(@player.wknd_off_time, "%l:%M%P") || ConcertoConfig[:content_default_end_time]) %>
+      </div>
+    </div>
+
     <div class="clearfix">
       <div class="input checkbox">
         <ul class="inputs-list">

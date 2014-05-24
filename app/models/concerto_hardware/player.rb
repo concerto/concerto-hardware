@@ -165,5 +165,9 @@ module ConcertoHardware
       end
     end
 
+    def polling_interval
+      return ConcertoConfig[:poll_interval].to_i
+    end
+
   end # class Player
 end # module ConcertoHardware

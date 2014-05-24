@@ -39,7 +39,7 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @player }
+      format.json { render :json => @player, :methods => :polling_interval}
     end
   end
 

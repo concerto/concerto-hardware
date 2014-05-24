@@ -33,9 +33,12 @@ class PlayersController < ApplicationController
         raise ActiveRecord::RecordNotFound, "Couldn't find an authenticated screen."
       else
         @player = Player.find_by_screen_id!(current_screen.id)
+        @player.ip_address = request.remote_ip if @player
       end
     end
     auth!
+
+    @player.save if @player.ip_address_changed?
 
     respond_to do |format|
       format.html # show.html.erb

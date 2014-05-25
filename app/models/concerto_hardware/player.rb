@@ -169,5 +169,13 @@ module ConcertoHardware
       return ConcertoConfig[:poll_interval].to_i
     end
 
+
+    def as_json(options)
+      json = super(options)
+      json["screen_on_off"] = ActiveSupport::JSON.decode(self.screen_on_off)
+      json["polling_interval"] = self.polling_interval
+      json
+    end
+
   end # class Player
 end # module ConcertoHardware

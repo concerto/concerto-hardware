@@ -1,7 +1,7 @@
 A Rails Engine for managing Bandshell-powered Concerto hardware 
 
 To use this engine, add the following to the Concerto Gemfile:
-gem 'concerto-hardware', :path => '/path/to/concerto-hardware'
+gem 'concerto_hardware', :path => '/path/to/concerto_hardware'
 
 To create the proper migrations, use:
-rails generate concerto-hardware
+rails generate concerto_hardware

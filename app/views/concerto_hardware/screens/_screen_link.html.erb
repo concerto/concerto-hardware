@@ -1,7 +1,6 @@
 <%# This partial will be read in the context of the main Concerto app.  %>
 <%# URL helpers require use of the 'hardware' routing helper.           %>
 <%# ConcertoHardware authorization rules are automatically provided.    %>
-<% if current_user %>
   <section class="viewblock">
     <header class="viewblock-header">
       <div class="viewblock-header_right">
@@ -35,7 +34,7 @@
           <p><b><%= @player.activated ? t('.activated') : t('.not_activated') %></b></p>
           <br />
           <% if can? :read, @player %>
-            <p><b>IP Address:</b> <%= @player.ip_address %></p>
+            <% if current_user %><p><b>IP Address:</b> <%= @player.ip_address %></p><% end %>
             <p><b>Screen On/Off Times:</b></p>
             <ul>
               <% @player.describe_screen_on_off.each do |rule| %>
@@ -47,4 +46,3 @@
       </div>
     </div>
   </section>
-<% end %>

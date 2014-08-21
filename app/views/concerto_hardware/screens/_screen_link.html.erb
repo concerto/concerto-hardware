@@ -5,7 +5,7 @@
     <header class="viewblock-header">
       <div class="viewblock-header_right">
         <div class="button-padding">
-          <% if can? :update, @player %>
+          <% if (!@player.nil?) && (can? :update, @player) %>
             <%= link_to 'Edit Player', hardware.edit_player_path(@player), :class => "btn" %>
           <% end %>
         </div>

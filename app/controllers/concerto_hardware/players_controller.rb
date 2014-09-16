@@ -42,7 +42,11 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @player}
+      format.json {
+        render :json => @player.to_json(
+          :include => { :screen => { :only => :name } }
+        )
+      }
     end
   end
 

@@ -75,7 +75,7 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.json
   def create
-    @player = Player.new(params[:player])
+    @player = Player.new(player_params)
     auth!
 
     respond_to do |format|
@@ -96,7 +96,7 @@ class PlayersController < ApplicationController
     auth!
 
     respond_to do |format|
-      if @player.update_attributes(params[:player])
+      if @player.update_attributes(player_params)
         format.html { redirect_to [hardware, @player], :notice => 'Player was successfully updated.' }
         format.json { head :no_content }
       else
@@ -117,6 +117,14 @@ class PlayersController < ApplicationController
       format.html { redirect_to hardware.players_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  # Deal with strong parameter restrictions.
+  def player_params
+    params.require(:player).permit(:wkday_on_time, :wkday_off_time,
+      :wknd_on_time, :wkday_off_time, :wknd_disable, :force_off)
   end
 end
 

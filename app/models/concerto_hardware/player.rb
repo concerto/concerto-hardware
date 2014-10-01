@@ -1,17 +1,18 @@
+require 'concerto_hardware/time_accessible'
+
 module ConcertoHardware
   class Player < ActiveRecord::Base
-    belongs_to :screen
+    # Get the time_accessor method for virtual Time attributes
+    extend ConcertoHardware::TimeAccessible
 
-    def self.time_accessor(*syms)
-      syms.each do |sym|
-        attr_accessor sym
-        composed_of sym,
-              :class_name => 'Time',
-              :mapping => [sym.to_s, "to_s"],
-              :constructor => Proc.new{ |item| item },
-              :converter => Proc.new{ |item| item }
-      end
-    end
+    # Virtual attributes (these are read from and written to the database
+    # as parts of serialized JSON fields such as screen_on_off)
+    time_accessor :wkday_on_time, :wkday_off_time
+    time_accessor :wknd_on_time, :wknd_off_time
+    attr_accessor :wknd_disable
+    attr_accessor :force_off
+
+    belongs_to :screen
 
     # Hack to get the multiparameter virtual attributes working
     def self.create_time_zone_conversion_attribute?(name, column)
@@ -22,12 +23,6 @@ module ConcertoHardware
     validates_presence_of :screen_id
     validates_presence_of :screen, :message => 'must exist'
     validates_uniqueness_of :screen_id
-
-    time_accessor :wkday_on_time, :wkday_off_time
-    time_accessor :wknd_on_time, :wknd_off_time
-    time_accessor :party_time
-    attr_accessor :wknd_disable
-    attr_accessor :force_off
 
     after_initialize :default_values
     after_find :retrieve_screen_on_off
@@ -168,7 +163,6 @@ module ConcertoHardware
     def polling_interval
       return ConcertoConfig[:poll_interval].to_i
     end
-
 
     def as_json(options)
       json = super(options)

@@ -1,8 +1,5 @@
-require_dependency "concerto_hardware/application_controller"
-
 module ConcertoHardware
-class PlayersController < ApplicationController
-  unloadable #marks this class for reloading in between requests
+class PlayersController < ConcertoHardware::ApplicationController
   #include routes.named_routes.helpers
   before_filter :screen_api
 

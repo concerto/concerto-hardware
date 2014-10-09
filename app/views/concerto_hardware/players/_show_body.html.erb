@@ -7,14 +7,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Ip address:</b>
+  <b><%= ConcertoHardware::Player.human_attribute_name(:ip_address) %>:</b>
   <%= @player.ip_address %>
 </p>
 
 <p>
-  <b>Screen:</b>
+  <b><%= ConcertoHardware::Player.human_attribute_name(:screen) %>:</b>
   <% if @player.screen.nil? %>
-    Not found
+    <%= t('.no_screen_found') %>
   <% else %>
     <% if can? :read, @player.screen %>
       <%= link_to @player.screen.name, [main_app, @player.screen] %>
@@ -25,12 +25,12 @@
 </p>
 
 <p>
-  <b>Activated:</b>
+  <b><%= ConcertoHardware::Player.human_attribute_name(:activated) %>:</b>
   <%= @player.activated %>
 </p>
 
 <p>
-  <b>Screen on/off times:</b>
+  <b><%= ConcertoHardware::Player.human_attribute_name(:screen_on_off_times) %>:</b>
   <ul>
     <% @player.describe_screen_on_off.each do |rule| %>
       <li><%=rule%></li>

@@ -6,11 +6,12 @@ en:
       concerto_hardware/player:
         activated: 'Active'
         ip_address: 'IP Address'
-        wkday_on_time: 'Weekday turn On time'
-        wkday_off_time: 'Weekday turn Off time'
+        wkday_on_time: 'Weekday turn on time'
+        wkday_off_time: 'Weekday turn off time'
         wknd_disable: 'Disable on weekends'
-        wknd_on_time: 'Weekend turn On time'
-        wknd_off_time: 'Weekend turn Off time'
+        wknd_on_time: 'Weekend turn on time'
+        wknd_off_time: 'Weekend turn off time'
+        screen_on_off_times: "Screen On/Off Times"
 
   concerto_hardware:
     players:
@@ -18,6 +19,14 @@ en:
         header: 'New %{screen} Player'
       edit:
         header: 'Edit %{screen} Player'
+      form:
+        provide_details: "Provide Details"
+        force_off_msg: "temporarily turns off the screen until midnight tonight"
+        time_format_msg: "All time fields should be entered in 24 hour format (HH:mm), for example 23:30 for 11:30 PM."
+      show_body:
+        no_screen_found: "No Screen Found"
+      is_activated: "Activated"
+      not_activated: "Not Activated"
 
     screens:
       screen_link:
@@ -25,5 +34,6 @@ en:
         no_player_header: "No Player"
         no_player_msg: "A Concerto Player has not yet been connected to this screen."
         add_player_msg: "Specify a Player manually."
-        activated: "Activated"
+        player_settings: "Player Settings"
+        is_activated: "Activated"
         not_activated: "Not Activated"

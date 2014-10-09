@@ -6,7 +6,7 @@
       <div class="viewblock-header_right">
         <div class="button-padding">
           <% if (!@player.nil?) && (can? :update, @player) %>
-            <%= link_to 'Edit Player', hardware.edit_player_path(@player), :class => "btn" %>
+            <%= link_to t('.player_settings'), hardware.edit_player_path(@player), :class => "btn" %>
           <% end %>
         </div>
       </div>
@@ -24,11 +24,16 @@
           </div>
         <% else %>
           <h3><%= @screen.name + " Player" %></h3>
-          <p><b><%= @player.activated ? t('.activated') : t('.not_activated') %></b></p>
+          <p><b><%= @player.activated ? t('.is_activated') : t('.not_activated') %></b></p>
           <br />
           <% if can? :read, @player %>
-            <% if current_user %><p><b>IP Address:</b> <%= @player.ip_address %></p><% end %>
-            <p><b>Screen On/Off Times:</b></p>
+            <% if current_user %>
+              <p>
+                 <b><%= ConcertoHardware::Player.human_attribute_name(:ip_address)%>:</b>
+                 <%= @player.ip_address %>
+              </p>
+            <% end %>
+            <p><b><%= ConcertoHardware::Player.human_attribute_name(:screen_on_off_times)%>:</b></p>
             <ul>
               <% @player.describe_screen_on_off.each do |rule| %>
                 <li><%= rule %></li>

@@ -62,11 +62,11 @@
     <div class="clearfix">
       <div class="input checkbox">
         <ul class="inputs-list">
-          <li><%= f.check_box :force_off %> <%= f.label :force_off %> (temporarily turns off the screen until midnight tonight)</li>
+          <li><%= f.check_box :force_off %> <%= f.label :force_off %> (<%= t('.force_off_msg') %>)</li>
         </ul>
       </div>
     </div>
-    <p><em>All time fields should be entered in 24 hour format (HH:mm), for example 23:30 for 11:30 PM.</em></p>
+    <p><em><%= t('.time_format_msg') %></em></p>
   </fieldset>
 
   <div class="submit_bar actions">

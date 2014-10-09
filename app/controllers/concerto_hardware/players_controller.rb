@@ -47,43 +47,10 @@ class PlayersController < ConcertoHardware::ApplicationController
     end
   end
 
-  # GET /players/new
-  # GET /players/new.json
-  def new
-    @player = Player.new
-    if !params[:screen_id].nil?
-      # TODO: Error handling
-      @player.screen = Screen.find(params[:screen_id])
-    end
-    auth!
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @player }
-    end
-  end
-
   # GET /players/1/edit
   def edit
     @player = Player.find(params[:id])
     auth!
-  end
-
-  # POST /players
-  # POST /players.json
-  def create
-    @player = Player.new(player_params)
-    auth!
-
-    respond_to do |format|
-      if @player.save
-        format.html { redirect_to [hardware, @player], :notice => 'Player was successfully created.' }
-        format.json { render :json => @player, :status => :created, :location => @player }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @player.errors, :status => :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /players/1

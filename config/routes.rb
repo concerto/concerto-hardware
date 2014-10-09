@@ -10,7 +10,7 @@ ConcertoHardware::Engine.routes.draw do
 
   # Since we have an isolated namespace, routes are automaticaly scoped
   # to the ConcertoHardware module.
-  resources :players do
+  resources :players, :except => [:new, :create] do
     collection do
       # Look up a player based on the screen ID.
       get 'by_screen/:screen_id' => ConcertoHardware::PlayersController.action(:show)

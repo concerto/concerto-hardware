@@ -1,12 +1,5 @@
 <section class="viewblock">
   <header class="viewblock-header">
-    <div class="viewblock-header_right">
-      <div class="button-padding">
-        <% if can? :create, ConcertoHardware::Player %>
-          <%= link_to t(:new_model, :model => ConcertoHardware::Player.model_name.human), new_player_path, :class => "btn" %>
-        <% end %>
-      </div>
-    </div>
     <h1 class="default-padding">
       <%= t(:all_model, :model => ConcertoHardware::Player.model_name.human.pluralize) %>
     </h1>

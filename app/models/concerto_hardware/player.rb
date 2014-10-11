@@ -24,6 +24,16 @@ module ConcertoHardware
     validates_presence_of :screen, :message => 'must exist'
     validates_uniqueness_of :screen_id
 
+    # Time virtual attributes return nil if an invalid attribute
+    # was given.
+    validates :wkday_on_time, :wkday_off_time, :presence => {
+      :message => :must_be_valid_time
+    }
+    validates :wknd_on_time, :wknd_off_time, :presence => {
+      :message => :must_be_valid_time
+    }
+    validate :on_must_come_before_off
+
     after_initialize :default_values
     after_find :retrieve_screen_on_off
     before_save :process_screen_on_off
@@ -51,7 +61,6 @@ module ConcertoHardware
     # https://github.com/concerto/concerto-hardware/
     #                            wiki/Player-API#screen-onoff-times
     # TODO: Formatting for datetimes
-    # TODO: Validation
     # TODO: TIMEZONES
     def process_screen_on_off
       ruleset = []
@@ -171,5 +180,19 @@ module ConcertoHardware
       json
     end
 
+    private
+
+    # Time order validation method
+    # Assumes all times are already validated as not nil
+    def on_must_come_before_off
+      if wkday_off_time < wkday_on_time
+        errors.add :wkday_off_time, :must_come_after,
+          :before => self.class.human_attribute_name(:wkday_on_time)
+      end
+      if wknd_off_time < wknd_on_time
+        errors.add :wknd_off_time, :must_come_after,
+          :before => self.class.human_attribute_name(:wknd_on_time)
+      end
+    end
   end # class Player
 end # module ConcertoHardware

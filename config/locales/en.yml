@@ -12,6 +12,11 @@ en:
         wknd_on_time: 'Weekend turn on time'
         wknd_off_time: 'Weekend turn off time'
         screen_on_off_times: "Screen On/Off Times"
+    errors:
+      models:
+        concerto_hardware/player:
+          must_be_valid_time: 'must be a valid time of day'
+          must_come_after: 'must come after %{before}'
 
   concerto_hardware:
     players:
@@ -22,7 +27,6 @@ en:
       form:
         provide_details: "Provide Details"
         force_off_msg: "temporarily turns off the screen until midnight tonight"
-        time_format_msg: "All time fields should be entered in 24 hour format (HH:mm), for example 23:30 for 11:30 PM."
       show_body:
         no_screen_found: "No Screen Found"
       is_activated: "Activated"

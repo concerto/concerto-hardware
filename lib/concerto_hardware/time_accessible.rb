@@ -31,18 +31,22 @@ module ConcertoHardware
        self.class_eval <<-RUBY, __FILE__, __LINE__ + 1
           def #{sym}
             if @#{sym}_timeobj.is_a? Time
-              @#{sym}_timeobj.to_s
+              @#{sym}_timeobj
             else
               nil
             end
           end
           def #{sym}=(val)
+            @#{sym}_timeobj = nil
             if val.is_a? Time
               @#{sym}_timeobj = val
             elsif val.is_a? String
-              @#{sym}_timeobj = Time.parse(val)
-            else
-              raise ArgumentError.new("Only Strings or Times allowed")
+              begin
+                @#{sym}_timeobj = Time.parse(val)
+              rescue ArgumentError => e
+                # Example: empty string or not a time
+                # Value gets nil, which validations will flag.
+              end
             end
           end
         RUBY

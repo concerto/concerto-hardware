@@ -33,7 +33,7 @@ module ConcertoHardware
         # at the controller and view levels.
 
         add_header_tags do
-          javascript_include_tag "concerto_hardware/plugin"
+          javascript_include_tag "concerto_hardware/application"
         end
 
         add_controller_hook "ScreensController", :show, :before do

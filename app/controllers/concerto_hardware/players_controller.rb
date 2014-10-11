@@ -88,7 +88,7 @@ class PlayersController < ConcertoHardware::ApplicationController
   # Deal with strong parameter restrictions.
   def player_params
     params.require(:player).permit(:wkday_on_time, :wkday_off_time,
-      :wknd_on_time, :wkday_off_time, :wknd_disable, :force_off)
+      :wknd_on_time, :wknd_off_time, :wknd_disable, :force_off)
   end
 end
 

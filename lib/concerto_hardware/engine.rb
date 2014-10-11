@@ -32,6 +32,10 @@ module ConcertoHardware
         # The following hooks allow integration into the main Concerto app
         # at the controller and view levels.
 
+        add_header_tags do
+          javascript_include_tag "concerto_hardware/plugin"
+        end
+
         add_controller_hook "ScreensController", :show, :before do
           @player = Player.find_by_screen_id(@screen.id)
         end

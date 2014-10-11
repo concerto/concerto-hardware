@@ -30,6 +30,7 @@ module ConcertoHardware
       :message => :must_be_valid_time
     }
     validates :wknd_on_time, :wknd_off_time, :presence => {
+      :unless => "wknd_disable?",
       :message => :must_be_valid_time
     }
     validate :on_must_come_before_off
@@ -37,6 +38,13 @@ module ConcertoHardware
     after_initialize :default_values
     after_find :retrieve_screen_on_off
     before_save :process_screen_on_off
+
+    # Evaluates truthiness of the virtual attribute.
+    def wknd_disable?
+      return true if self.wknd_disable == "1"
+      return true if self.wknd_disable == true
+      return false
+    end
 
     def default_values
       self.screen_on_off ||= [
@@ -64,6 +72,12 @@ module ConcertoHardware
     # TODO: TIMEZONES
     def process_screen_on_off
       ruleset = []
+      if wknd_disable?
+        # Special case: we can ignore invlaid wknd times if we're off
+        # on the weekend (avoids a rough edge on form submission).
+        self.wknd_on_time = "09:00" if wknd_on_time.nil?
+        self.wknd_off_time = "23:00" if wknd_off_time.nil?
+      end
       unless self.wkday_on_time.nil? or self.wkday_off_time.nil?
         ruleset << {
           :action => "on",
@@ -74,7 +88,7 @@ module ConcertoHardware
       end
       unless self.wknd_on_time.nil? or self.wknd_off_time.nil?
         ruleset << {
-          :action => self.wknd_disable=="1" ? "off" : "on",
+          :action => self.wknd_disable? ? "off" : "on",
           :wkday => "06", # Sun, Sat
           :time_after => fmt_time(wknd_on_time),  # "07:00"
           :time_before => fmt_time(wknd_off_time), # "23:00"
@@ -147,7 +161,7 @@ module ConcertoHardware
       else
         rules << "Weekdays: on at "+fmt_time(wkday_on_time, "%l:%M%P")+", "+
           "off at "+fmt_time(wkday_off_time, "%l:%M%P")+"."
-        if wknd_disable
+        if wknd_disable?
           rules << "Weekends: off."
         else
           rules << "Weekends: on at "+fmt_time(wknd_on_time, "%l:%M%P")+", "+
@@ -183,15 +197,18 @@ module ConcertoHardware
     private
 
     # Time order validation method
-    # Assumes all times are already validated as not nil
     def on_must_come_before_off
-      if wkday_off_time < wkday_on_time
-        errors.add :wkday_off_time, :must_come_after,
-          :before => self.class.human_attribute_name(:wkday_on_time)
+      unless wkday_off_time.nil? or wkday_on_time.nil?
+        if wkday_off_time < wkday_on_time
+          errors.add :wkday_off_time, :must_come_after,
+            :before => self.class.human_attribute_name(:wkday_on_time)
+        end
       end
-      if wknd_off_time < wknd_on_time
-        errors.add :wknd_off_time, :must_come_after,
-          :before => self.class.human_attribute_name(:wknd_on_time)
+      unless wknd_off_time.nil? or wknd_on_time.nil? or wknd_disable?
+        if wknd_off_time < wknd_on_time
+          errors.add :wknd_off_time, :must_come_after,
+            :before => self.class.human_attribute_name(:wknd_on_time)
+        end
       end
     end
   end # class Player

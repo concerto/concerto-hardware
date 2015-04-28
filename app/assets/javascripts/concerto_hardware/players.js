@@ -12,11 +12,19 @@ var ConcertoHardware = {
       $('#wknd_off_time_div').show();
     }
   },
+  updateAlwaysOn: function() {
+    show = !$('#player_always_on').is(':checked');
+    $('#on_off_details_div').toggle(show);
+  },
 
   initPlayers: function() {
     ConcertoHardware.updateWkndOnOff();
     $('#player_wknd_disable').change(function() {
       ConcertoHardware.updateWkndOnOff();
+    });
+    ConcertoHardware.updateAlwaysOn();
+    $('#player_always_on').change(function() {
+      ConcertoHardware.updateAlwaysOn();
     });
   }
 };

@@ -12,6 +12,7 @@ en:
         wknd_on_time: 'Weekend turn on time'
         wknd_off_time: 'Weekend turn off time'
         screen_on_off_times: "Screen On/Off Times"
+        always_on: "Player Always On"
     errors:
       models:
         concerto_hardware/player:
@@ -27,6 +28,7 @@ en:
       form:
         provide_details: "Provide Details"
         force_off_msg: "temporarily turns off the screen until midnight tonight"
+        always_on_msg: "prevents Concerto from turning off the screen, but may waste energy"
       show_body:
         no_screen_found: "No Screen Found"
       is_activated: "Activated"

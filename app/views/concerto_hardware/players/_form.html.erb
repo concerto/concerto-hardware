@@ -21,7 +21,16 @@
       </div>
     </div>
 
+    <div class="clearfix">
+      <div class="input checkbox">
+        <ul class="inputs-list">
+          <li><%= f.check_box :always_on%> <%= f.label :always_on%> (<%= t('.always_on_msg') %>)</li>
+        </ul>
+      </div>
+    </div>
+
     <!-- Screen on/off times. Good luck, UI designer. -->
+    <div id = "on_off_details_div">
     <div class="clearfix">
       <%= f.label :wkday_on_time %>
       <div class="input-prepend">
@@ -65,6 +74,7 @@
           <li><%= f.check_box :force_off %> <%= f.label :force_off %> (<%= t('.force_off_msg') %>)</li>
         </ul>
       </div>
+    </div>
     </div>
   </fieldset>
 

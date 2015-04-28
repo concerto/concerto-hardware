@@ -9,6 +9,7 @@ module ConcertoHardware
     # as parts of serialized JSON fields such as screen_on_off)
     time_accessor :wkday_on_time, :wkday_off_time
     time_accessor :wknd_on_time, :wknd_off_time
+    attr_accessor :always_on
     attr_accessor :wknd_disable
     attr_accessor :force_off
 
@@ -100,6 +101,12 @@ module ConcertoHardware
           :date => Time.now.strftime("%Y-%m-%d")
         }
       end
+      if self.always_on == "1"
+        # Note: supersedes everything else.
+        ruleset << {
+          :action => "force_on"
+        }
+      end
       if ruleset.empty? && self.screen_on_off.blank?
         ruleset << {
           :action => "on"
@@ -115,6 +122,7 @@ module ConcertoHardware
     # supports 3 simple rules.
     def retrieve_screen_on_off
       return nil if screen_on_off.blank?
+      self.always_on = false # default unless rule exists
 
       ruleset = ActiveSupport::JSON.decode(self.screen_on_off)
       ruleset.each do |rule|
@@ -138,6 +146,9 @@ module ConcertoHardware
               self.force_off = (rule['action'] != 'on')
             end
           end # force off rules
+          if rule['action'] == 'force_on'
+            self.always_on = true
+          end # always on
         end # has an action
       end # each rule
     end # retrive_screen_on_off
@@ -156,6 +167,9 @@ module ConcertoHardware
       rules = []
       if self.screen_on_off.blank?
         rules << "On/off times not configured. The screen will always be on."
+      elsif self.always_on
+        rules << "Screen is always on. Click 'Edit Player' to configure "+
+                 "power-saving screen controls."
       elsif !screen_on_off_valid
         rules << "On/off rules are invalid. Edit and save the Player to fix."
       else

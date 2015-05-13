@@ -7,7 +7,6 @@ module ConcertoHardware
   # Note that links back to the main application will need to directly
   # reference the main_app router.
   class ApplicationController < ::ApplicationController
-    unloadable # Marks this class for reloading in development mode
     def current_ability
       # Use the Ability class defined in this engine's namespace.
       # It is designed to also include the rules from the main app.

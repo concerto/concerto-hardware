@@ -24,10 +24,10 @@ module ConcertoHardware
                    :seq_no => 999,
                    :description => "Client hardware polling interval in seconds")
 
-        # Some code to run at app boot
-        init do
-          Rails.logger.info "ConcertoHardware: Initialization code is running"
-        end
+        # Some code to run at app boot (example)
+        # init do
+        #   Rails.logger.info "ConcertoHardware: Initialization code is running"
+        # end
 
         # The following hooks allow integration into the main Concerto app
         # at the controller and view levels.

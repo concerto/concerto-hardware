@@ -41,7 +41,8 @@ class PlayersController < ConcertoHardware::ApplicationController
       format.html # show.html.erb
       format.json {
         render :json => @player.to_json(
-          :include => { :screen => { :only => :name } }
+          :include => { :screen => { :only => :name } },
+          :methods => [:time_zone]
         )
       }
     end

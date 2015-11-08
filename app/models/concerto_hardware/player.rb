@@ -201,6 +201,24 @@ module ConcertoHardware
       return ConcertoConfig[:poll_interval].to_i
     end
 
+    # Get the timezone that has been configured for this screen,
+    # using in the standard region/city format.
+    # Example: "America/New York"
+    # This is used in the Player API for Bandshell.
+    def time_zone
+      # The concerto config and screen config are stored in
+      # ActiveSupport::TimeZone's "friendly" time zone format:
+      #   "Eastern Time (US & Canada)"
+      if screen.nil? or screen.time_zone.nil?
+        pretty_time_zone = ConcertoConfig[:system_time_zone]
+      else
+        pretty_time_zone = screen.time_zone
+      end
+      # Now just backtrack to the canonical name which will
+      # be useful to the players.
+      ActiveSupport::TimeZone::MAPPING[pretty_time_zone]
+    end
+
     def as_json(options)
       json = super(options)
       json["screen_on_off"] = ActiveSupport::JSON.decode(self.screen_on_off)

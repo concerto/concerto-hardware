@@ -66,6 +66,8 @@ module ConcertoHardware
         end
 
         add_view_hook "ScreensController", :screen_details, :partial => "concerto_hardware/screens/screen_link"
+
+        add_view_hook "ScreensController", :screen_statistics, :partial => "concerto_hardware/screens/player_stats"
       end
     end
   end # class Engine

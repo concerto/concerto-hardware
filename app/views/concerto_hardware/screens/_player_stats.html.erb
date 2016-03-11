@@ -1,0 +1,4 @@
+<%# This partial will be read in the context of the main Concerto app.  %>
+<%# URL helpers require use of the 'hardware' routing helper.           %>
+<%# ConcertoHardware authorization rules are automatically provided.    %>
+<p><b><%= link_to 'Hardware Players', hardware.players_path %>:</b> <%= ConcertoHardware::Player.count %></p>

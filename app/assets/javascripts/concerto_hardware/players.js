@@ -29,5 +29,4 @@ var ConcertoHardware = {
   }
 };
 
-$(document).ready(ConcertoHardware.initPlayers);
-$(document).on('page:change', ConcertoHardware.initPlayers);
+$(document).on('turbolinks:load', ConcertoHardware.initPlayers);

@@ -3,6 +3,8 @@
 
 // Namespace the plugin for neatness
 var ConcertoHardware = {
+  _initialized: false,
+
   updateWkndOnOff: function() {
     if ($('#player_wknd_disable').is(':checked')) {
       $('#wknd_on_time_div').hide();
@@ -19,14 +21,18 @@ var ConcertoHardware = {
 
   initPlayers: function() {
     ConcertoHardware.updateWkndOnOff();
-    $('#player_wknd_disable').change(function() {
-      ConcertoHardware.updateWkndOnOff();
-    });
     ConcertoHardware.updateAlwaysOn();
-    $('#player_always_on').change(function() {
-      ConcertoHardware.updateAlwaysOn();
-    });
+
+    if (ConcertoHardware._initialized) {
+      // console.debug('ConcertoHardware already initialized');
+    } else {
+      // console.debug('ConcertoHardware initializing');
+      $(document).on('change', '#player_wknd_disable', ConcertoHardware.updateWkndOnOff);
+      $(document).on('change', '#player_always_on', ConcertoHardware.updateAlwaysOn);
+      ConcertoHardware._initialized = true;
+    }
   }
 };
 
+$(document).ready(ConcertoHardware.initPlayers);
 $(document).on('turbolinks:load', ConcertoHardware.initPlayers);
